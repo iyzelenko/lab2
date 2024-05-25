@@ -1,0 +1,58 @@
+лаба 2 номер 1 
+
+import math
+import random
+
+# Функция для вычисления длины вектора
+def vector_length(vector):
+    return math.sqrt(vector[0]**2 + vector[1]**2)
+
+# Генерируем случайные координаты для трех векторов
+vector1 = [random.randint(1,10), random.randint(1,10)]
+vector2 = [random.randint(1,10), random.randint(1,10)]
+vector3 = [random.randint(1,10), random.randint(1,10)]
+
+# Вычисляем длины векторов
+length_vector1 = vector_length(vector1)
+length_vector2 = vector_length(vector2)
+length_vector3 = vector_length(vector3)
+
+# Вычисляем углы между векторами
+angle_vector1_2 = math.degrees(math.acos((vector1[0]*vector2[0] + vector1[1]*vector2[1]) / (length_vector1 * length_vector2)))
+angle_vector1_3 = math.degrees(math.acos((vector1[0]*vector3[0] + vector1[1]*vector3[1]) / (length_vector1 * length_vector3)))
+angle_vector2_3 = math.degrees(math.acos((vector2[0]*vector3[0] + vector2[1]*vector3[1]) / (length_vector2 * length_vector3)))
+
+# Вычисляем сумму и разность векторов
+sum_vector1_2 = [vector1[0]+vector2[0], vector1[1]+vector2[1]]
+sum_vector1_3 = [vector1[0]+vector3[0], vector1[1]+vector3[1]]
+sum_vector2_3 = [vector2[0]+vector3[0], vector2[1]+vector3[1]]
+
+diff_vector1_2 = [vector1[0]-vector2[0], vector1[1]-vector2[1]]
+diff_vector1_3 = [vector1[0]-vector3[0], vector1[1]-vector3[1]]
+diff_vector2_3 = [vector2[0]-vector3[0], vector2[1]-vector3[1]]
+
+# Проверяем наличие параллельных векторов
+parallel = False
+if vector1[0]/vector2[0] == vector1[1]/vector2[1] or vector1[0]/vector3[0] == vector1[1]/vector3[1] or vector2[0]/vector3[0] == vector2[1]/vector3[1]:
+    parallel = True
+
+print("Длина вектора 1:", length_vector1)
+print("Длина вектора 2:", length_vector2)
+print("Длина вектора 3:", length_vector3)
+
+print("Угол между векторами 1 и 2:", angle_vector1_2)
+print("Угол между векторами 1 и 3:", angle_vector1_3)
+print("Угол между векторами 2 и 3:", angle_vector2_3)
+
+print("Сумма векторов 1 и 2:", sum_vector1_2)
+print("Сумма векторов 1 и 3:", sum_vector1_3)
+print("Сумма векторов 2 и 3:", sum_vector2_3)
+
+print("Разность векторов 1 и 2:", diff_vector1_2)
+print("Разность векторов 1 и 3:", diff_vector1_3)
+print("Разность векторов 2 и 3:", diff_vector2_3)
+
+if parallel:
+    print("Есть параллельные векторы")
+else:
+    print("Нет параллельных векторов")

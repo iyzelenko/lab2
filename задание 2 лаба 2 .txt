@@ -1,0 +1,65 @@
+задание 2 лаба 2 
+
+#include <iostream> 
+#include <vector>
+#include <cmath>
+
+struct Vector { double x; double y; double z; };
+
+double calculateMagnitude(Vector v) { return sqrt(v.x * v.x + v.y * v.y + v.z * v.z); }
+
+double calculateAngle(Vector v1, Vector v2) { double dotProduct = (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z); double magnitude1 = calculateMagnitude(v1); double magnitude2 = calculateMagnitude(v2); return acos(dotProduct / (magnitude1 * magnitude2)); }
+
+Vector vectorSum(Vector v1, Vector v2) { return {v1.x + v2.x, v1.y + v2.y, v1.z + v2.z}; }
+
+Vector vectorDifference(Vector v1, Vector v2) { return {v1.x - v2.x, v1.y - v2.y, v1.z - v2.z}; }
+
+int main() { Vector v1 = {3, 4, 5}; Vector v2 = {1, 2, 3}; Vector v3 = {5, 6, 7};
+
+ 
+std::cout << "Magnitude of v1: " << calculateMagnitude(v1) << std::endl;
+std::cout << "Magnitude of v2: " << calculateMagnitude(v2) << std::endl;
+std::cout << "Magnitude of v3: " << calculateMagnitude(v3) << std::endl;
+
+std::cout << "Angle between v1 and v2: " << calculateAngle(v1, v2) << std::endl;
+std::cout << "Angle between v2 and v3: " << calculateAngle(v2, v3) << std::endl;
+std::cout << "Angle between v1 and v3: " << calculateAngle(v1, v3) << std::endl;
+
+Vector sum12 = vectorSum(v1, v2);
+Vector diff12 = vectorDifference(v1, v2);
+Vector sum23 = vectorSum(v2, v3);
+Vector diff23 = vectorDifference(v2, v3);
+Vector sum13 = vectorSum(v1, v3);
+Vector diff13 = vectorDifference(v1, v3);
+
+std::cout << "Sum of v1 and v2: (" << sum12.x << ", " << sum12.y << ", " << sum12.z << ")" << std::endl;
+std::cout << "Difference of v1 and v2: (" << diff12.x << ", " << diff12.y << ", " << diff12.z << ")" << std::endl;
+std::cout << "Sum of v2 and v3: (" << sum23.x << ", " << sum23.y << ", " << sum23.z << ")" << std::endl;
+std::cout << "Difference of v2 and v3: (" << diff23.x << ", " << diff23.y << ", " << diff23.z << ")" << std::endl;
+std::cout << "Sum of v1 and v3: (" << sum13.x << ", " << sum13.y << ", " << sum13.z << ")" << std::endl;
+std::cout << "Difference of v1 and v3: (" << diff13.x << ", " << diff13.y << ", " << diff13.z << ")" << std::endl;
+
+// Check if vectors are coplanar by checking if the triple scalar product is zero
+double tripleScalarProduct = v1.x * (v2.y * v3.z - v2.z * v3.y) -
+                              v1.y * (v2.x * v3.z - v2.z * v3.x) +
+                              v1.z * (v2.x * v3.y - v2.y * v3.x);
+
+if (tripleScalarProduct == 0) {
+    std::cout << "Vectors do not lie in the same plane." << std::endl;
+} else {
+    std::cout << "Vectors lie in the same plane." << std::endl;
+}
+
+// Check if any of the vectors are parallel
+if ((v1.x / v2.x == v1.y / v2.y) && (v1.y / v2.y == v1.z / v2.z)) {
+    std::cout << "v1 and v2 are parallel." << std::endl;
+}
+if ((v1.x / v3.x == v1.y / v3.y) && (v1.y / v3.y == v1.z / v3.z)) {
+    std::cout << "v1 and v3 are parallel." << std::endl;
+}
+if ((v2.x / v3.x == v2.y / v3.y) && (v2.y / v3.y == v2.z / v3.z)) {
+    std::cout << "v2 and v3 are parallel." << std::endl;
+}
+
+return 0;
+}

@@ -1,0 +1,97 @@
+лаба 2 номер 4
+
+import random
+
+# Коэффициенты гиперболического параболоида
+a = random.uniform(-10, 10)
+b = random.uniform(-10, 10)
+c = random.uniform(-10, 10)
+d = random.uniform(-10, 10)
+
+# Коэффициенты плоскости
+A = random.uniform(-10, 10)
+B = random.uniform(-10, 10)
+C = random.uniform(-10, 10)
+
+# Коэффициенты прямой
+x0 = random.uniform(-10, 10)
+y0 = random.uniform(-10, 10)
+z0 = random.uniform(-10, 10)
+vx = random.uniform(-10, 10)
+vy = random.uniform(-10, 10)
+vz = random.uniform(-10, 10)
+
+# Координаты точки в пространстве
+x = random.uniform(-10, 10)
+y = random.uniform(-10, 10)
+z = random.uniform(-10, 10)
+
+# Проверяем, пересекает ли плоскость гиперболический параболоид
+def does_plane_intersect_paraboloid(a, b, c, d, A, B, C, x0, y0, z0):
+    # Расстояние от плоскости до вершины параболоида
+    distance = (A * x0 + B * y0 + C * z0 - d) / (A*2 + B*2 + C*2)*0.5
+    
+    # Если расстояние не равно 0, то плоскость пересекает параболоид
+    return distance != 0
+
+# Проверяем, пересекает ли прямая гиперболический параболоид
+def does_line_intersect_paraboloid(a, b, c, d, x0, y0, z0, vx, vy, vz):
+    # Параметрическое представление прямой
+    t = 0
+    x_t = x0 + t * vx
+    y_t = y0 + t * vy
+    z_t = z0 + t * vz
+
+    # Подставляем параметрическое представление в уравнение параболоида
+    equation = a * x_t*2 + b * y_t*2 - c * z_t*2 + d
+
+    # Если уравнение равно 0, то прямая пересекает параболоид
+    return equation == 0
+
+# Проверяем, принадлежит ли точка гиперболическому параболоиду
+def does_point_belong_to_paraboloid(a, b, c, d, x, y, z):
+    # Подставляем координаты точки в уравнение параболоида
+    equation = a * x*2 + b * y*2 - c * z*2 + d
+
+    # Если уравнение равно 0, то точка принадлежит параболоиду
+    return equation == 0
+
+# Выводим результаты
+print("Коэффициенты гиперболического параболоида:")
+print("a =", a)
+print("b =", b)
+print("c =", c)
+print("d =", d)
+
+print("\nКоэффициенты плоскости:")
+print("A =", A)
+print("B =", B)
+print("C =", C)
+
+print("\nКоэффициенты прямой:")
+print("x0 =", x0)
+print("y0 =", y0)
+print("z0 =", z0)
+print("vx =", vx)
+print("vy =", vy)
+print("vz =", vz)
+
+print("\nКоординаты точки в пространстве:")
+print("x =", x)
+print("y =", y)
+print("z =", z)
+
+if does_plane_intersect_paraboloid(a, b, c, d, A, B, C, x0, y0, z0):
+    print("\nПлоскость пересекает гиперболический параболоид.")
+else:
+    print("\nПлоскость не пересекает гиперболический параболоид.")
+
+if does_line_intersect_paraboloid(a, b, c, d, x0, y0, z0, vx, vy, vz):
+    print("\nПрямая пересекает гиперболический параболоид.")
+else:
+    print("\nПрямая не пересекает гиперболический параболоид.")
+
+if does_point_belong_to_paraboloid(a, b, c, d, x, y, z):
+    print("\nТочка принадлежит гиперболическому параболоиду.")
+else:
+    print("\nТочка не принадлежит гиперболическому параболоиду.")

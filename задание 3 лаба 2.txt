@@ -1,0 +1,66 @@
+задание 3 лаба 2
+#include <iostream>
+#include <cmath>
+#include <random>
+
+// Функция для проверки принадлежности точки гиперболе
+bool isPointOnHyperbola(double f1, double f2, double a, double b, double x, double y) {
+    // Вектор от фокуса до точки
+    double vx = x - f1;
+    double vy = y - f2;
+    // Вектор от второго фокуса до точки
+    double wx = x - f2;
+    double wy = y - f1;
+    
+    // Расстояние от точки до каждого фокуса
+    double r1 = sqrt(vx  *  vx + vy  *  vy);
+    double r2 = sqrt(wx  *  wx + wy  *  wy);
+    
+    // Проверка расстояния
+    return (r1 - a)  *  (r2 - a) == b  *  b;
+}
+
+int main() {
+    // Генерация случайных значений для параметров гиперболы
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(0.0, 10.0);
+    
+    double a = dis(gen); // Длина действительной полуоси
+    double b = dis(gen); // Длина мнимой полуоси
+    double e = sqrt(a  *  a - b  *  b); // Эксцентриситет
+    
+    // Координаты фокусов
+    double f1x = -e  *  a;
+    double f1y = 0.0;
+    double f2x = e  *  a;
+    double f2y = 0.0;
+    
+    // Координаты точки
+    double x = dis(gen);
+    double y = dis(gen);
+    
+    // Вывод координат фокусов
+    std::cout << "Фокус 1: (" << f1x << ", " << f1y << ")" << std::endl;
+    std::cout << "Фокус 2: (" << f2x << ", " << f2y << ")" << std::endl;
+    
+    // Вывод эксцентриситета
+    std::cout << "Эксцентриситет: " << e << std::endl;
+    
+    // Проверка принадлежности точки гиперболе
+    if (isPointOnHyperbola(f1x, f1y, a, b, x, y)) {
+        std::cout << "Точка принадлежит гиперболе." << std::endl;
+    } else {
+        std::cout << "Точка не принадлежит гиперболе." << std::endl;
+    }
+    
+    // Вычисление расстояния между директрисами гиперболы
+    double distance_between_directrices = 2  *  sqrt(a  *  a + b  *  b);
+    std::cout << "Расстояние между директрисами: " << distance_between_directrices << std::endl;
+    
+    // Вывод длин мнимой и действительной полуосей
+    std::cout << "Длина действительной полуоси: " << a << std::endl;
+    std::cout << "Длина мнимой полуоси: " << b << std::endl;
+    
+    return 0;
+}
