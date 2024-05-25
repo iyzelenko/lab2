@@ -1,5 +1,3 @@
-задание 2 лаба 2 
-
 #include <iostream> 
 #include <vector>
 #include <cmath>
